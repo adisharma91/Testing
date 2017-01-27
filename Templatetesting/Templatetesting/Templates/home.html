@@ -1,0 +1,495 @@
+﻿<html lang="en">
+    <head>
+		<meta charset="utf-8">
+
+		<title>jQuery Best Practices</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+		<meta name="author" content="Asa Baylus">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">		
+        <link href="../Content/themes/reveal.min.css" rel="stylesheet" />
+        <link href="../Content/themes/beige.css" rel="stylesheet" />
+		
+		<!-- For syntax highlighting -->
+        <link href="../Content/themes/zenburn.css" rel="stylesheet" />		
+		<style type="text/css">
+			pre { box-shadow: 0 0 !important; }
+			code { box-shadow: 0 0 6px rgba(0, 0, 0, .3);  }
+		</style>
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<!--<script>
+		    document.write('<link rel="stylesheet" href="Content/themes/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+		</script>
+        <link href="../Content/themes/paper.css" rel="stylesheet" />-->
+
+		<style>
+			.elgreg-slides img {
+				max-width: 50%;
+			}
+		</style>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body style="transition: -webkit-transform 0.8s ease;">
+
+		<div class="reveal center">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="stack present" style="top: 0px; display: block;" data-previous-indexv="0">
+					<section class="present" style="top: -173px; display: block;">
+						<h1 style="font-size: 3.5em;">
+							<br>ADITYA SHARMA
+						</h1>
+						<p>For Python</p>
+					</section>
+					
+				</section>
+                <section class="future" style="top: -229.5px; display: block;">
+						<h2>About Me</h2>
+						<div>
+							<ul>
+								<li>Python Developer at Ameotech Informatics</li>
+								<li>Open Source Enthusiast</li>
+								<li>Soon-to-be Author</li>
+								<li>Hates the word HTML5</li>
+							</ul>
+							<div style="text-align: left;">
+								<br>
+							</div>
+						</div>
+						<h3 style="font-size:1.5em;">Contact Details</h3>
+						<div>
+							<ul>
+								<li><strong>Github</strong>: https://github.com/gfranko</li>
+								<li><strong>Twitter</strong>: https://twitter.com/GregFranko</li>
+								<li><strong>LinkedIn</strong>: http://linkedin.com/in/gregfranko</li>
+								<li><strong>Stackoverflow</strong>: http://stackoverflow.com/users/1172750/greg-franko</li>
+							</ul>
+						</div>
+					</section>
+				<section class="future" style="top: -166px; display: block;">
+					<h2>
+						Why do people use jQuery?<br>
+					</h2>
+					<ul>
+						<li><strong>The DOM sucks without it</strong></li>
+						<li><strong>Ajax and JSONP suck without it</strong></li>
+						<li><strong>jQuery Utility functions are rad</strong></li>
+						<li><strong>jQuery Deferreds/Promises are really rad</strong></li>
+					</ul>
+				</section>
+				<section class="future" style="top: -183.5px; display: block;">
+					<h2>What other projects use jQuery?</h2>
+					<ul>
+						<li><strong>Backbone.js</strong></li>
+						<li><strong>Twitter Bootstrap</strong></li>
+						<li><strong>jQueryUI</strong></li>
+						<li><strong>jQuery Mobile</strong></li>
+						<li><strong>Millions of jQuery and jQueryUI Plugins</strong></li>
+					</ul>
+				</section>
+				<section class="future" style="top: -123px; display: block;">
+					<h1>Are You Using jQuery?</h1>
+
+					<h5>It's okay if you aren't</h5>
+				</section>
+
+				<section class="future" style="top: -20px; display: none;">
+					<h1>jQuery Ready Event</h1>
+				</section>
+<section class="future" style="top: -20px; display: none;">
+					<h3>Most Projects start like this:</h3>
+					<pre>	<code class="javascript">
+  $(<span class="string">"document"</span>).ready(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// The DOM is ready!</span>
+    <span class="comment">// The rest of the code goes here</span>
+  });
+	</code>
+			        </pre>
+					<p>or use a shorter version...</p>
+					<pre>	<code class="javascript">
+  $(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// The DOM is ready!</span>
+    <span class="comment">// The rest of the code goes here</span>
+  });
+	</code>
+			    </pre>
+				</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h1>This is fine...</h1>
+					<br>
+					<ul>
+						<li>If you know the environments where your code will run</li>
+						<li>If you do not care about page load performance</li>
+						<li>If you don't care about best practices</li>
+					</ul>
+				</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h2>This is better:</h2>
+
+					<pre>	<code class="javascript">
+  <span class="comment">// IIFE - Immediately Invoked Function Expression</span>
+  (<span class="function"><span class="keyword">function</span><span class="params">($, window, document)</span> {</span>
+
+    <span class="comment">// The $ is now locally scoped </span>
+
+   <span class="comment">// Listen for the jQuery ready event on the document</span>
+   $(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+     <span class="comment">// The DOM is ready!</span>
+
+   });
+
+   <span class="comment">// The rest of the code goes here!</span>
+
+  }(window.jQuery, window, document));
+  <span class="comment">// The global jQuery object is passed as a parameter</span>
+	</code>
+			        </pre>
+<a href="http://jsbin.com/onahin/4/edit" target="_blank" class="roll"><span data-title="jsbin example">jsbin example</span></a>
+				</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h2>This is best:</h2>
+
+					<pre>	<code class="javascript">
+  <span class="comment">// IIFE - Immediately Invoked Function Expression</span>
+  (<span class="function"><span class="keyword">function</span><span class="params">(yourcode)</span> {</span>
+
+    <span class="comment">// The global jQuery object is passed as a parameter</span>
+  	yourcode(window.jQuery, window, document);
+
+  }(<span class="function"><span class="keyword">function</span><span class="params">($, window, document)</span> {</span>
+
+    <span class="comment">// The $ is now locally scoped </span>
+
+   <span class="comment">// Listen for the jQuery ready event on the document</span>
+   $(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+     <span class="comment">// The DOM is ready!</span>
+
+   });
+
+   <span class="comment">// The rest of the code goes here!</span>
+
+  }
+  }));
+	</code>
+			        </pre>
+			        <a href="http://jsbin.com/aseyaz/4/edit" target="_blank" class="roll"><span data-title="jsbin example">jsbin example</span></a>
+				</section>
+				<section class="future" style="top: -20px; display: none;">
+				<h1>DOM manipulation</h1>
+				</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h3>Most Projects do this:</h3>
+					<pre>	<code class="cs">
+  <span class="comment">// Set's an element's title attribute using it's current text</span>
+  $(<span class="string">".container input#elem"</span>).attr(<span class="string">"title"</span>, $(<span class="string">".container input#elem"</span>).text());
+
+  <span class="comment">// Set's an element's text color to red</span>
+  $(<span class="string">".container input#elem"</span>).css(<span class="string">"color"</span>, <span class="string">"red"</span>);
+
+  <span class="comment">// Makes the element fade out</span>
+  $(<span class="string">".container input#elem"</span>).fadeOut();
+
+	</code>
+			        </pre>
+			</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h1>This is fine...</h1>
+					<br>
+					<ul>
+						<li>If you like repeating yourself</li>
+						<li>If you do not care about performance</li>
+						<li>If you don't care about best practices</li>
+					</ul>
+				</section>
+					<section class="future" style="top: -20px; display: none;">
+					<h2>This is better:</h2>
+
+					<pre>	<code class="cs">
+  <span class="comment">// Set's an element's title attribute using it's current text</span>
+  $(<span class="string">"#elem"</span>).attr(<span class="string">"title"</span>, $(<span class="string">"#elem"</span>).text());
+
+  <span class="comment">// Set's an element's text color to red</span>
+  $(<span class="string">"#elem"</span>).css(<span class="string">"color"</span>, <span class="string">"red"</span>);
+
+  <span class="comment">// Makes the element fade out</span>
+  $(<span class="string">"#elem"</span>).fadeOut();
+	</code>
+			        </pre>
+			        <h3>Simplify your selectors</h3>
+					</section>
+					<section class="future" style="top: -20px; display: none;">
+					<h2>This is best:</h2>
+
+					<pre>	<code class="cs">
+  <span class="comment">// Stores the live DOM element inside of a variable</span>
+  <span class="keyword">var</span> elem = $(<span class="string">"#elem"</span>);
+
+  <span class="comment">// Set's an element's title attribute using it's current text</span>
+  elem.attr(<span class="string">"title"</span>, elem.text());
+
+  <span class="comment">// Set's an element's text color to red</span>
+  elem.css(<span class="string">"color"</span>, <span class="string">"red"</span>);
+
+  <span class="comment">// Makes the element fade out</span>
+  elem.fadeOut();
+	</code>
+			        </pre>
+			        <h3>Cache your selectors in variables</h3>
+			      </section>
+			    <section class="future" style="top: -20px; display: none;">	
+					<p>or use a shorter version...</p>
+					<pre>	<code class="cs">
+  <span class="comment">// Stores the live DOM element inside of a variable</span>
+  <span class="keyword">var</span> elem = $(<span class="string">"#elem"</span>);
+
+  <span class="comment">// Chaining</span>
+  elem.attr(<span class="string">"title"</span>, elem.text()).css(<span class="string">"color"</span>, <span class="string">"red"</span>).fadeOut();
+
+	</code>
+			    </pre>
+			    <h3>Chaining</h3>
+					</section>
+<section class="future" style="top: -20px; display: none;">
+	<h1>Another DOM Example</h1>
+</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h3>Most Projects do this:</h3>
+					<pre>	<code class="xml">
+  // Dynamically building an unordered list from an array
+  var localArr = ["Greg", "Peter", "Kyle", "Danny", "Mark"],
+  	list = $("ul.people");
+
+  $.each(localArr, function(index, value) {
+
+    list.append("<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">" + index + "</span>&gt;</span>" + value + "<span class="tag">&lt;/<span class="title">li</span>&gt;</span>");
+
+  });
+
+	</code>
+			        </pre>
+			</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h1>This is fine...</h1>
+					<br>
+					<ul>
+						<li>If you like repeatedly appending elements to the DOM</li>
+						<li>If you like slow web apps</li>
+						<li>If you don't care about best practices</li>
+					</ul>
+				</section>
+					<section class="future" style="top: -20px; display: none;">
+					<h2>This is best:</h2>
+
+					<pre>	<code class="xml">
+  // Dynamically building an unordered list from an array
+  var localArr = ["Greg", "Peter", "Kyle", "Danny", "Mark"],
+  	list = $("ul.people"),
+  	dynamicItems = "";
+
+  $.each(localArr, function(index, value) {
+
+    dynamicItems += "<span class="tag">&lt;<span class="title">li</span> <span class="attribute">id</span>=<span class="value">" + index + "</span>&gt;</span>" + value + "<span class="tag">&lt;/<span class="title">li</span>&gt;</span>";
+
+  });
+
+  list.append(dynamicItems);
+	</code>
+			        </pre>
+			        <h3>Append once</h3>
+					</section>
+					
+					<section class="future" style="top: -20px; display: none;">
+	<h1>Event Handling</h1>
+					</section>
+<section class="future" style="top: -20px; display: none;">
+					<h3>Most Projects do this:</h3>
+					<pre>	<code class="javascript">
+
+  $(<span class="string">"#longlist li"</span>).on(<span class="string">"mouseenter"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+    $(<span class="keyword">this</span>).text(<span class="string">"Click me!"</span>);
+
+  });
+
+  $(<span class="string">"#longlist li"</span>).on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+    $(<span class="keyword">this</span>).text(<span class="string">"Why did you click me?!"</span>);
+
+  });
+
+	</code>
+			        </pre>
+			</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h1>This is fine...</h1>
+					<br>
+					<ul>
+						<li>If you like using a lot of memory for event handlers</li>
+						<li>If you don't have many DOM elements</li>
+						<li>If you don't care about best practices</li>
+					</ul>
+				</section>
+					<section class="future" style="top: -20px; display: none;">
+					<h2>This is better:</h2>
+
+					<pre>	<code class="javascript">
+  <span class="keyword">var</span> listItems = $(<span class="string">"#longlist li"</span>);
+  listItems.on({
+
+    <span class="string">"mouseenter"</span>: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+      $(<span class="keyword">this</span>).text(<span class="string">"Click me!"</span>);
+
+    },
+
+    <span class="string">"click"</span>: <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+      $(<span class="keyword">this</span>).text(<span class="string">"Why did you click me?!"</span>);
+
+    }
+
+  });
+	</code>
+			        </pre>
+			        <h3>DRY (Don't Repeat Yourself)</h3>
+					</section>
+					<section class="future" style="top: -20px; display: none;">
+					<h2>This is best:</h2>
+
+					<pre>	<code class="javascript">
+  <span class="keyword">var</span> list = $(<span class="string">"#longlist"</span>);
+
+  list.on(<span class="string">"mouseenter"</span>, <span class="string">"li"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+
+    $(<span class="keyword">this</span>).text(<span class="string">"Click me!"</span>);
+
+  });
+
+  list.on(<span class="string">"click"</span>, <span class="string">"li"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+
+    $(<span class="keyword">this</span>).text(<span class="string">"Why did you click me?!"</span>);
+
+  });
+	</code>
+			        </pre>
+			        <h3>Event Delegation</h3>
+			      </section>
+
+					<section class="future" style="top: -20px; display: none;">
+	<h1>AJAX</h1>
+					</section>
+<section class="future" style="top: -20px; display: none;">
+					<h3>Most Projects do this:</h3>
+					<pre>	<code class="javascript">
+  <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">(personid)</span> {</span>
+    <span class="keyword">var</span> dynamicData = {};
+    dynamicData[<span class="string">"id"</span>] = personID;
+    $.ajax({
+      url: <span class="string">"getName.php"</span>,
+      type: <span class="string">"get"</span>,
+      data: dynamicData,
+      success: <span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
+        <span class="comment">// Updates the UI based the ajax result</span>
+        $(<span class="string">".person-name"</span>).text(data.name);  
+      }
+    });
+  }
+
+  getName(<span class="string">"2342342"</span>);
+
+	</code>
+			        </pre>
+			</section>
+				<section class="future" style="top: -20px; display: none;">
+					<h1>This is fine...</h1>
+					<br>
+					<ul>
+						<li>If you like inflexible code</li>
+						<li>If you don't have to worry about multiple ajax requests</li>
+						<li>If you don't care about best practices</li>
+					</ul>
+				</section>
+					<section class="future" style="top: -229.5px; display: block;">
+					<h2>This is best:</h2>
+
+					<pre>	<code class="javascript">
+  <span class="function"><span class="keyword">function</span> <span class="title">getName</span><span class="params">(personid)</span> {</span>
+    <span class="keyword">var</span> dynamicData = {};
+    dynamicData[<span class="string">"id"</span>] = personID;
+    <span class="keyword">return</span> $.ajax({
+      url: <span class="string">"getName.php"</span>,
+      type: <span class="string">"get"</span>,
+      data: dynamicData
+    });
+  }
+
+  getName(<span class="string">"2342342"</span>).done(<span class="function"><span class="keyword">function</span><span class="params">(data)</span> {</span>
+    <span class="comment">// Updates the UI based the ajax result</span>
+    $(<span class="string">".person-name"</span>).text(data.name); 
+  });
+	</code>
+			        </pre>
+			        <h3>Uses Promises, Very Flexible</h3>
+					</section>
+<section class="future" style="top: -150px; display: block;">
+	<h1>What are you interested In?</h1>
+</section>
+<section class="future" style="top: -229.5px; display: block;">
+	<h1>Possible Topics</h1>
+					<ul>
+						<li>jQuery and CSS</li>
+						<li>jQuery Custom Events - Pub/Sub</li>
+						<li>jQuery and Object Literals</li>
+						<li>jQuery Utility Functions</li>
+						<li>jQuery Event Namespaces</li>
+						<li>The future of jQuery</li>
+						<li>jQuery Event Namespaces</li>
+						<li>Authoring jQuery Plugins</li>
+						<li>Return False vs Event.preventDefault()</li>
+						<li>Animation with Promises</li>
+					</ul>
+</section>
+			</div>
+
+		<div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><div class="navigate-left"></div><div class="navigate-right enabled"></div><div class="navigate-up"></div><div class="navigate-down enabled"></div></aside><div class="state-background"></div><div class="pause-overlay"></div></div>
+        		
+        <script src="../Content/themes/head.min.js"></script>		
+        <script src="../Content/themes/reveal.min.js"></script>
+
+		<script>
+
+		    // Full list of configuration options available here:
+		    // https://github.com/hakimel/reveal.js#configuration
+		    Reveal.initialize({
+		        controls: true,
+		        progress: true,
+		        history: true,
+		        center: true,
+
+		        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+		        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+		        // Optional libraries used to extend on reveal.js
+		       
+		    });
+
+		</script>
+        <script src="../Content/themes/highlight.js"></script>
+        <script src="../Content/themes/zoom.js"></script>
+        <script src="../Content/themes/notes.js"></script>
+
+</body></html>
